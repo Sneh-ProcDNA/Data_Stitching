@@ -1,0 +1,490 @@
+2026-02-18 14:24:14 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-18 14:24:14 | INFO     | db | Database engine created successfully
+2026-02-18 14:24:14 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-18 14:24:21 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9
+2026-02-18 14:24:21 | DEBUG    | db | Executing query: sp_data
+2026-02-18 14:24:30 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125
+2026-02-18 14:24:30 | DEBUG    | db | Executing query: mx_core_table
+2026-02-18 14:26:44 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24
+2026-02-18 14:26:44 | DEBUG    | db | Executing query: px_core_table
+2026-02-18 14:27:23 | INFO     | db | px_df loaded | rows: 151466 | columns: 29
+2026-02-18 14:27:23 | INFO     | db | All database tables loaded successfully
+2026-02-18 14:34:20 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-18 14:34:20 | INFO     | db | Database engine created successfully
+2026-02-18 14:34:20 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-18 14:34:28 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9
+2026-02-18 14:34:28 | DEBUG    | db | Executing query: sp_data
+2026-02-18 14:34:37 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125
+2026-02-18 14:34:37 | DEBUG    | db | Executing query: mx_core_table
+2026-02-18 14:36:29 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24
+2026-02-18 14:36:29 | DEBUG    | db | Executing query: px_core_table
+2026-02-18 14:37:06 | INFO     | db | px_df loaded | rows: 151466 | columns: 29
+2026-02-18 14:37:06 | INFO     | db | All database tables loaded successfully
+2026-02-18 14:37:07 | INFO     | pipeline | Starting Diagnosis Validation section
+2026-02-18 14:37:07 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-02-18 14:37:07 | INFO     | pipeline | ICD codes from SP data populated for 1838 records
+2026-02-18 14:37:07 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-02-18 14:40:16 | INFO     | pipeline | ICD codes from claims populated for 1596 records
+2026-02-18 14:40:16 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-02-18 14:40:16 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 1596 | exact_diag_code_flag=True: 1074
+2026-02-18 14:40:16 | DEBUG    | pipeline | Calculating diagnosis frequency per patient row
+2026-02-18 14:41:39 | INFO     | pipeline | Diagnosis frequency calculated | mean=48.60 | max=1903
+2026-02-18 14:41:39 | DEBUG    | pipeline | Generating diagnosis lookback windows (90, 180, 360 days)
+2026-02-18 14:42:47 | INFO     | pipeline | Diagnosis lookback windows populated successfully
+2026-02-18 14:42:47 | DEBUG    | pipeline | Generating first-last claim lookback frequency
+2026-02-18 14:46:33 | INFO     | pipeline | First-last claim lookback frequency populated
+2026-02-18 14:46:33 | INFO     | pipeline | Starting Therapy Rules section
+2026-02-18 14:46:33 | DEBUG    | pipeline | Generating treatment flags for: radiation (codes: ['61796', '61797', '61798', '61799', '61800', '77261', '77262', '77263', '77280', '77285', '77290', '77293', '77295', '77300', '77301', '77306', '77307', '77316', '77317', '77318', '77321', '77331', '77332', '77333', '77334', '77336', '77338', '77370', '77371', '77372', '77373', '77385', '77386', '77387', '77401', '77402', '77407', '77412', '77417', '77424', '77425', '77427', '77431', '77470', '77520', '77522', '77523', '77525', '77761', '77762', '77763', '77767', '77768', '77770', '77771', '77772', '0395T', 'G0339', 'G0340', 'G6001', 'G6002', 'G6003', 'G6004', 'G6005', 'G6006', 'G6007', 'G6008', 'G6009', 'G6010', 'G6011', 'G6012', 'G6013', 'G6014', 'G6015', 'G6016', 'G6017', 'D0012ZZ', 'D0Y07ZZ', 'D0010ZZ', 'D0000ZZ', 'D0002ZZ', 'D0001ZZ', 'D0Y0FZZ', 'D0Y17ZZ', 'D0006ZZ', 'D0011ZZ', 'D0003ZZ', 'D0005ZZ'])
+2026-02-18 14:50:02 | INFO     | pipeline | Treatment 'radiation' | flagged patients: 677 | mean freq: 15.97
+2026-02-18 14:50:02 | DEBUG    | pipeline | Generating treatment flags for: chemotherapy (codes: ['96400', '96408', '96412', '96414', '96445', '96545', '99555', '96360', '96361', '96365', '96366', '96367', '96368', '96369', '96370', '96371', '96372', '96373', '96374', '96375', '96376', '96379', '96409', '96411', '96413', '96415', '96417', '96549', 'G0498', 'G8928', 'G8929', 'J8999', 'J9000-J9999', 'Q0081', 'Q0084'])
+2026-02-18 14:53:29 | INFO     | pipeline | Treatment 'chemotherapy' | flagged patients: 980 | mean freq: 8.12
+2026-02-18 14:53:29 | DEBUG    | pipeline | Generating treatment flags for: surgery (codes: ['61790', '81463', '61750', '61751', '61510', '61518', '61519', '61520', '61512', '61521', '61526', '61530'])
+2026-02-18 14:57:48 | INFO     | pipeline | Treatment 'surgery' | flagged patients: 508 | mean freq: 0.36
+2026-02-18 14:57:48 | DEBUG    | pipeline | Generating treatment flags for: testing (codes: ['88341', '88342', '88344', '88360', '88361', '81401', '81479', '81210', '81445', '81425'])
+2026-02-18 15:04:05 | INFO     | pipeline | Treatment 'testing' | flagged patients: 711 | mean freq: 1.38
+2026-02-18 15:04:05 | DEBUG    | pipeline | Deduplicating sp_core_df and sp_df before merge
+2026-02-18 15:04:05 | INFO     | pipeline | After deduplication | sp_core_df: 2206 rows | sp_df: 2206 rows
+2026-02-18 15:04:05 | DEBUG    | pipeline | Merging sp_core_df and sp_df on keys: ['sp_prescriber_npi', 'sp_patient_id', 'sp_state', 'sp_gender', 'sp_age', 'matched_patient_id', 'matched_gender', 'matched_age_2025', 'matched_state']
+2026-02-18 15:04:05 | INFO     | pipeline | Merge complete | final_df shape: (2206, 26)
+2026-02-18 15:04:05 | INFO     | pipeline | Starting Dispense Rules section
+2026-02-18 15:04:05 | DEBUG    | pipeline | Loading SP data from database and filtering for MODEYSO
+2026-02-18 15:04:19 | INFO     | pipeline | SP data loaded | rows after product filter: 4160
+2026-02-18 15:04:19 | DEBUG    | pipeline | Loading SP core base data from database
+2026-02-18 15:04:21 | INFO     | pipeline | SP core base data loaded | rows: 2385
+2026-02-18 15:04:21 | DEBUG    | pipeline | Cleansing and parsing ship_date in sp_dispense
+2026-02-18 15:04:22 | WARNING  | pipeline | 3316 ship_date values could not be parsed and were set to NaT
+2026-02-18 15:04:22 | DEBUG    | pipeline | Loading PX data and filtering for MODEYSO / DORDAVIPRONE HCL
+2026-02-18 15:04:22 | INFO     | pipeline | PX data loaded | rows after filter: 499
+2026-02-18 15:04:22 | DEBUG    | pipeline | Parsing px_dispense date columns
+2026-02-18 15:04:22 | DEBUG    | pipeline | Merging sp_core_df with sp_dispense and px_dispense
+2026-02-18 15:04:22 | INFO     | pipeline | Dispense merges complete | sp_core_copy shape: (38262, 18)
+2026-02-18 15:04:22 | DEBUG    | pipeline | Deduplicating sp_core_copy
+2026-02-18 15:04:22 | INFO     | pipeline | Deduplication removed 21973 rows | remaining: 16289
+2026-02-18 15:04:22 | INFO     | pipeline | Dropped 1704 rows with null rx_written_date | remaining: 14585
+2026-02-18 15:04:22 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-02-18 15:04:23 | INFO     | pipeline | Prescription flags | rx_flag=True: -8922 | exact_fill_flag=True: -14271 | lag_fill_flag=True: -14241
+2026-02-18 15:04:23 | DEBUG    | pipeline | Coercing numeric columns: days_supply_x, dispense_quantity, days_supply_y, quantity
+2026-02-18 15:04:23 | WARNING  | pipeline | Column 'days_supply_x': 9131 values could not be coerced to numeric
+2026-02-18 15:04:23 | WARNING  | pipeline | Column 'dispense_quantity': 9131 values could not be coerced to numeric
+2026-02-18 15:04:23 | WARNING  | pipeline | Column 'days_supply_y': 11004 values could not be coerced to numeric
+2026-02-18 15:04:23 | WARNING  | pipeline | Column 'quantity': 11004 values could not be coerced to numeric
+2026-02-18 15:04:23 | DEBUG    | pipeline | Generating quantity dispensed flags (days_supply_flag, quantity_flag)
+2026-02-18 15:04:23 | INFO     | pipeline | Quantity flags | days_supply_flag=True: -14492 | quantity_flag=True: -14492
+2026-02-18 15:04:23 | INFO     | pipeline | Pipeline execution complete
+2026-02-18 15:14:13 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-18 15:14:13 | INFO     | db | Database engine created successfully
+2026-02-18 15:14:13 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-18 15:14:20 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9
+2026-02-18 15:14:20 | DEBUG    | db | Executing query: sp_data
+2026-02-18 15:14:23 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125
+2026-02-18 15:14:23 | DEBUG    | db | Executing query: mx_core_table
+2026-02-18 15:15:22 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24
+2026-02-18 15:15:22 | DEBUG    | db | Executing query: px_core_table
+2026-02-18 15:15:40 | INFO     | db | px_df loaded | rows: 151466 | columns: 29
+2026-02-18 15:15:40 | INFO     | db | All database tables loaded successfully
+2026-02-18 15:15:42 | INFO     | pipeline | Pipeline started at 1771407942.2227597
+2026-02-18 15:15:42 | INFO     | pipeline | Starting Diagnosis Validation section
+2026-02-18 15:15:42 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-02-18 15:15:45 | INFO     | pipeline | ICD codes from SP data populated for 1838 records
+2026-02-18 15:15:45 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-02-18 15:16:21 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-18 15:16:21 | INFO     | db | Database engine created successfully
+2026-02-18 15:16:21 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-18 15:16:27 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9 | time: 6.12s
+2026-02-18 15:16:27 | DEBUG    | db | Executing query: sp_data
+2026-02-18 15:16:31 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 3.97s
+2026-02-18 15:16:31 | DEBUG    | db | Executing query: mx_core_table
+2026-02-18 15:20:58 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-18 15:20:59 | INFO     | db | Database engine created successfully
+2026-02-18 15:20:59 | INFO     | db | Starting Data Download at 2026-02-18 15:20:59
+2026-02-18 15:20:59 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-18 15:21:05 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9 | time: 6.27s
+2026-02-18 15:21:05 | DEBUG    | db | Executing query: sp_data
+2026-02-18 15:21:08 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 3.66s
+2026-02-18 15:21:08 | DEBUG    | db | Executing query: mx_core_table
+2026-02-18 15:21:43 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 34.62s
+2026-02-18 15:21:43 | DEBUG    | db | Executing query: px_core_table
+2026-02-18 15:21:55 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 12.25s
+2026-02-18 15:21:55 | INFO     | db | All database tables loaded successfully | total db load time: 0m 56.82s
+2026-02-18 15:21:57 | INFO     | pipeline | Pipeline started at 1771408317.304845
+2026-02-18 15:21:57 | INFO     | pipeline | Starting Diagnosis Validation section
+2026-02-18 15:21:57 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-02-18 15:21:59 | INFO     | pipeline | ICD codes from SP data populated for 1838 records
+2026-02-18 15:21:59 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-02-18 15:26:06 | INFO     | pipeline | ICD codes from claims populated for 1596 records
+2026-02-18 15:26:06 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-02-18 15:26:06 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 1596 | exact_diag_code_flag=True: 1074
+2026-02-18 15:26:06 | DEBUG    | pipeline | Calculating diagnosis frequency per patient row
+2026-02-18 15:27:57 | INFO     | pipeline | Diagnosis frequency calculated | mean=48.60 | max=1903
+2026-02-18 15:27:57 | DEBUG    | pipeline | Generating diagnosis lookback windows (90, 180, 360 days)
+2026-02-18 15:29:57 | INFO     | pipeline | Diagnosis lookback windows populated successfully
+2026-02-18 15:29:57 | DEBUG    | pipeline | Generating first-last claim lookback frequency
+2026-02-18 15:40:43 | INFO     | pipeline | First-last claim lookback frequency populated
+2026-02-18 15:40:43 | INFO     | pipeline | Starting Therapy Rules section
+2026-02-18 15:40:43 | DEBUG    | pipeline | Generating treatment flags for: radiation (codes: ['61796', '61797', '61798', '61799', '61800', '77261', '77262', '77263', '77280', '77285', '77290', '77293', '77295', '77300', '77301', '77306', '77307', '77316', '77317', '77318', '77321', '77331', '77332', '77333', '77334', '77336', '77338', '77370', '77371', '77372', '77373', '77385', '77386', '77387', '77401', '77402', '77407', '77412', '77417', '77424', '77425', '77427', '77431', '77470', '77520', '77522', '77523', '77525', '77761', '77762', '77763', '77767', '77768', '77770', '77771', '77772', '0395T', 'G0339', 'G0340', 'G6001', 'G6002', 'G6003', 'G6004', 'G6005', 'G6006', 'G6007', 'G6008', 'G6009', 'G6010', 'G6011', 'G6012', 'G6013', 'G6014', 'G6015', 'G6016', 'G6017', 'D0012ZZ', 'D0Y07ZZ', 'D0010ZZ', 'D0000ZZ', 'D0002ZZ', 'D0001ZZ', 'D0Y0FZZ', 'D0Y17ZZ', 'D0006ZZ', 'D0011ZZ', 'D0003ZZ', 'D0005ZZ'])
+2026-02-18 15:49:46 | INFO     | pipeline | Treatment 'radiation' | flagged patients: 677 | mean freq: 15.97
+2026-02-18 15:49:46 | DEBUG    | pipeline | Generating treatment flags for: chemotherapy (codes: ['96400', '96408', '96412', '96414', '96445', '96545', '99555', '96360', '96361', '96365', '96366', '96367', '96368', '96369', '96370', '96371', '96372', '96373', '96374', '96375', '96376', '96379', '96409', '96411', '96413', '96415', '96417', '96549', 'G0498', 'G8928', 'G8929', 'J8999', 'J9000-J9999', 'Q0081', 'Q0084'])
+2026-02-18 15:53:08 | INFO     | pipeline | Treatment 'chemotherapy' | flagged patients: 980 | mean freq: 8.12
+2026-02-18 15:53:08 | DEBUG    | pipeline | Generating treatment flags for: surgery (codes: ['61790', '81463', '61750', '61751', '61510', '61518', '61519', '61520', '61512', '61521', '61526', '61530'])
+2026-02-18 15:56:34 | INFO     | pipeline | Treatment 'surgery' | flagged patients: 508 | mean freq: 0.36
+2026-02-18 15:56:34 | DEBUG    | pipeline | Generating treatment flags for: testing (codes: ['88341', '88342', '88344', '88360', '88361', '81401', '81479', '81210', '81445', '81425'])
+2026-02-18 16:02:01 | INFO     | pipeline | Treatment 'testing' | flagged patients: 711 | mean freq: 1.38
+2026-02-18 16:02:01 | DEBUG    | pipeline | Deduplicating sp_core_df and sp_df before merge
+2026-02-18 16:02:01 | INFO     | pipeline | After deduplication | sp_core_df: 2206 rows | sp_df: 2206 rows
+2026-02-18 16:02:01 | DEBUG    | pipeline | Merging sp_core_df and sp_df on keys: ['sp_prescriber_npi', 'sp_patient_id', 'sp_state', 'sp_gender', 'sp_age', 'matched_patient_id', 'matched_gender', 'matched_age_2025', 'matched_state']
+2026-02-18 16:02:01 | INFO     | pipeline | Merge complete | final_df shape: (2206, 26)
+2026-02-18 16:02:01 | INFO     | pipeline | Starting Dispense Rules section
+2026-02-18 16:02:01 | DEBUG    | pipeline | Loading SP data from database and filtering for MODEYSO
+2026-02-18 16:02:04 | INFO     | pipeline | SP data loaded | rows after product filter: 4160
+2026-02-18 16:02:04 | DEBUG    | pipeline | Loading SP core base data from database
+2026-02-18 16:02:05 | INFO     | pipeline | SP core base data loaded | rows: 2385
+2026-02-18 16:02:05 | DEBUG    | pipeline | Cleansing and parsing ship_date in sp_dispense
+2026-02-18 16:02:05 | WARNING  | pipeline | 3316 ship_date values could not be parsed and were set to NaT
+2026-02-18 16:02:05 | DEBUG    | pipeline | Loading PX data and filtering for MODEYSO / DORDAVIPRONE HCL
+2026-02-18 16:02:06 | INFO     | pipeline | PX data loaded | rows after filter: 499
+2026-02-18 16:02:06 | DEBUG    | pipeline | Parsing px_dispense date columns
+2026-02-18 16:02:06 | DEBUG    | pipeline | Merging sp_core_df with sp_dispense and px_dispense
+2026-02-18 16:02:06 | INFO     | pipeline | Dispense merges complete | sp_core_copy shape: (38262, 18)
+2026-02-18 16:02:06 | DEBUG    | pipeline | Deduplicating sp_core_copy
+2026-02-18 16:02:06 | INFO     | pipeline | Deduplication removed 21973 rows | remaining: 16289
+2026-02-18 16:02:06 | INFO     | pipeline | Dropped 1704 rows with null rx_written_date | remaining: 14585
+2026-02-18 16:02:06 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-02-18 16:02:06 | INFO     | pipeline | Prescription flags | rx_flag=True: -8922 | exact_fill_flag=True: -14271 | lag_fill_flag=True: -14241
+2026-02-18 16:02:06 | DEBUG    | pipeline | Coercing numeric columns: days_supply_x, dispense_quantity, days_supply_y, quantity
+2026-02-18 16:02:06 | WARNING  | pipeline | Column 'days_supply_x': 9131 values could not be coerced to numeric
+2026-02-18 16:02:06 | WARNING  | pipeline | Column 'dispense_quantity': 9131 values could not be coerced to numeric
+2026-02-18 16:02:06 | WARNING  | pipeline | Column 'days_supply_y': 11004 values could not be coerced to numeric
+2026-02-18 16:02:06 | WARNING  | pipeline | Column 'quantity': 11004 values could not be coerced to numeric
+2026-02-18 16:02:06 | DEBUG    | pipeline | Generating quantity dispensed flags (days_supply_flag, quantity_flag)
+2026-02-18 16:02:06 | INFO     | pipeline | Quantity flags | days_supply_flag=True: -14492 | quantity_flag=True: -14492
+2026-02-18 16:02:06 | INFO     | pipeline | Exporting results to Excel
+2026-02-18 16:04:18 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-18 16:04:18 | INFO     | db | Database engine created successfully
+2026-02-18 16:04:18 | INFO     | db | Starting Data Download at 2026-02-18 16:04:18
+2026-02-18 16:04:18 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-18 16:04:26 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9 | time: 7.47s
+2026-02-18 16:04:26 | DEBUG    | db | Executing query: sp_data
+2026-02-18 16:04:38 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 12.20s
+2026-02-18 16:04:38 | DEBUG    | db | Executing query: mx_core_table
+2026-02-18 16:06:44 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 125.69s
+2026-02-18 16:06:44 | DEBUG    | db | Executing query: px_core_table
+2026-02-18 16:07:35 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 51.77s
+2026-02-18 16:07:35 | INFO     | db | All database tables loaded successfully | total db load time: 3m 17.14s
+2026-02-18 16:07:37 | INFO     | pipeline | Starting Data Download at 2026-02-18 16:07:37
+2026-02-18 16:07:37 | INFO     | pipeline | Diagnosis Validation Section started at 2026-02-18 16:07:37
+2026-02-18 16:07:37 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-02-18 16:07:39 | INFO     | pipeline | ICD codes from SP data populated for 1838 records
+2026-02-18 16:07:39 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-02-18 16:13:10 | INFO     | pipeline | ICD codes from claims populated for 1596 records
+2026-02-18 16:13:10 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-02-18 16:13:10 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 1596 | exact_diag_code_flag=True: 1074
+2026-02-18 16:13:10 | DEBUG    | pipeline | Calculating diagnosis frequency per patient row
+2026-02-18 16:16:10 | INFO     | pipeline | Diagnosis frequency calculated | mean=48.60 | max=1903
+2026-02-18 16:16:10 | DEBUG    | pipeline | Generating diagnosis lookback windows (90, 180, 360 days)
+2026-02-18 16:17:23 | INFO     | pipeline | Diagnosis lookback windows populated successfully
+2026-02-18 16:17:23 | DEBUG    | pipeline | Generating first-last claim lookback frequency
+2026-02-18 16:21:19 | INFO     | pipeline | First-last claim lookback frequency populated
+2026-02-18 16:21:19 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-02-18 16:21:19
+2026-02-18 16:21:19 | INFO     | pipeline | Therapy Rules Section started at 2026-02-18 16:21:19
+2026-02-18 16:21:19 | DEBUG    | pipeline | Generating treatment flags for: radiation (codes: ['61796', '61797', '61798', '61799', '61800', '77261', '77262', '77263', '77280', '77285', '77290', '77293', '77295', '77300', '77301', '77306', '77307', '77316', '77317', '77318', '77321', '77331', '77332', '77333', '77334', '77336', '77338', '77370', '77371', '77372', '77373', '77385', '77386', '77387', '77401', '77402', '77407', '77412', '77417', '77424', '77425', '77427', '77431', '77470', '77520', '77522', '77523', '77525', '77761', '77762', '77763', '77767', '77768', '77770', '77771', '77772', '0395T', 'G0339', 'G0340', 'G6001', 'G6002', 'G6003', 'G6004', 'G6005', 'G6006', 'G6007', 'G6008', 'G6009', 'G6010', 'G6011', 'G6012', 'G6013', 'G6014', 'G6015', 'G6016', 'G6017', 'D0012ZZ', 'D0Y07ZZ', 'D0010ZZ', 'D0000ZZ', 'D0002ZZ', 'D0001ZZ', 'D0Y0FZZ', 'D0Y17ZZ', 'D0006ZZ', 'D0011ZZ', 'D0003ZZ', 'D0005ZZ'])
+2026-02-18 16:24:57 | INFO     | pipeline | Treatment 'radiation' | flagged patients: 677 | mean freq: 15.97
+2026-02-18 16:24:57 | DEBUG    | pipeline | Generating treatment flags for: chemotherapy (codes: ['96400', '96408', '96412', '96414', '96445', '96545', '99555', '96360', '96361', '96365', '96366', '96367', '96368', '96369', '96370', '96371', '96372', '96373', '96374', '96375', '96376', '96379', '96409', '96411', '96413', '96415', '96417', '96549', 'G0498', 'G8928', 'G8929', 'J8999', 'J9000-J9999', 'Q0081', 'Q0084'])
+2026-02-18 16:28:13 | INFO     | pipeline | Treatment 'chemotherapy' | flagged patients: 980 | mean freq: 8.12
+2026-02-18 16:28:13 | DEBUG    | pipeline | Generating treatment flags for: surgery (codes: ['61790', '81463', '61750', '61751', '61510', '61518', '61519', '61520', '61512', '61521', '61526', '61530'])
+2026-02-18 16:31:30 | INFO     | pipeline | Treatment 'surgery' | flagged patients: 508 | mean freq: 0.36
+2026-02-18 16:31:30 | DEBUG    | pipeline | Generating treatment flags for: testing (codes: ['88341', '88342', '88344', '88360', '88361', '81401', '81479', '81210', '81445', '81425'])
+2026-02-18 16:34:48 | INFO     | pipeline | Treatment 'testing' | flagged patients: 711 | mean freq: 1.38
+2026-02-18 16:34:48 | DEBUG    | pipeline | Deduplicating sp_core_df and sp_df before merge
+2026-02-18 16:34:48 | INFO     | pipeline | After deduplication | sp_core_df: 2206 rows | sp_df: 2206 rows
+2026-02-18 16:34:48 | DEBUG    | pipeline | Merging sp_core_df and sp_df on keys: ['sp_prescriber_npi', 'sp_patient_id', 'sp_state', 'sp_gender', 'sp_age', 'matched_patient_id', 'matched_gender', 'matched_age_2025', 'matched_state']
+2026-02-18 16:34:48 | INFO     | pipeline | Merge complete | final_df shape: (2206, 26)
+2026-02-18 16:34:48 | INFO     | pipeline | Therapy Rules Section completed at 2026-02-18 16:34:48
+2026-02-18 16:34:48 | INFO     | pipeline | Dispense Rules Section started at 2026-02-18 16:34:48
+2026-02-18 16:34:48 | DEBUG    | pipeline | Loading SP data from database and filtering for MODEYSO
+2026-02-18 16:34:56 | INFO     | pipeline | SP data loaded | rows after product filter: 4160
+2026-02-18 16:34:56 | DEBUG    | pipeline | Loading SP core base data from database
+2026-02-18 16:34:58 | INFO     | pipeline | SP core base data loaded | rows: 2385
+2026-02-18 16:34:58 | DEBUG    | pipeline | Cleansing and parsing ship_date in sp_dispense
+2026-02-18 16:34:58 | WARNING  | pipeline | 3316 ship_date values could not be parsed and were set to NaT
+2026-02-18 16:34:58 | DEBUG    | pipeline | Loading PX data and filtering for MODEYSO / DORDAVIPRONE HCL
+2026-02-18 16:34:58 | INFO     | pipeline | PX data loaded | rows after filter: 499
+2026-02-18 16:34:58 | DEBUG    | pipeline | Parsing px_dispense date columns
+2026-02-18 16:34:58 | DEBUG    | pipeline | Merging sp_core_df with sp_dispense and px_dispense
+2026-02-18 16:34:58 | INFO     | pipeline | Dispense merges complete | sp_core_copy shape: (38262, 18)
+2026-02-18 16:34:58 | DEBUG    | pipeline | Deduplicating sp_core_copy
+2026-02-18 16:34:58 | INFO     | pipeline | Deduplication removed 21973 rows | remaining: 16289
+2026-02-18 16:34:58 | INFO     | pipeline | Dropped 1704 rows with null rx_written_date | remaining: 14585
+2026-02-18 16:34:58 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-02-18 16:34:58 | INFO     | pipeline | Prescription flags | rx_flag=True: -8922 | exact_fill_flag=True: -14271 | lag_fill_flag=True: -14241
+2026-02-18 16:34:58 | DEBUG    | pipeline | Coercing numeric columns: days_supply_x, dispense_quantity, days_supply_y, quantity
+2026-02-18 16:34:58 | WARNING  | pipeline | Column 'days_supply_x': 9131 values could not be coerced to numeric
+2026-02-18 16:34:58 | WARNING  | pipeline | Column 'dispense_quantity': 9131 values could not be coerced to numeric
+2026-02-18 16:34:58 | WARNING  | pipeline | Column 'days_supply_y': 11004 values could not be coerced to numeric
+2026-02-18 16:34:58 | WARNING  | pipeline | Column 'quantity': 11004 values could not be coerced to numeric
+2026-02-18 16:34:58 | DEBUG    | pipeline | Generating quantity dispensed flags (days_supply_flag, quantity_flag)
+2026-02-18 16:34:59 | INFO     | pipeline | Quantity flags | days_supply_flag=True: -14492 | quantity_flag=True: -14492
+2026-02-18 16:34:59 | INFO     | pipeline | Dispense Rules Section completed at 2026-02-18 16:34:59
+2026-02-18 16:34:59 | INFO     | pipeline | Exporting results to Excel
+2026-02-18 16:35:03 | INFO     | pipeline | Results exported to outputs/ | therapy_rules: 2206 rows | dispense_rules: 14585 rows | diagnosis_validation: 2385 rows
+2026-02-18 16:35:03 | INFO     | pipeline | Pipeline execution complete at 2026-02-18 16:35:03 | total time: 27m 26.45s
+2026-02-18 16:35:03 | INFO     | pipeline | Total time taken for pipeline execution: 27m 26.45s
+2026-02-19 10:39:10 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-19 10:39:10 | INFO     | db | Database engine created successfully
+2026-02-19 10:39:10 | INFO     | db | Starting Data Download at 2026-02-19 10:39:10
+2026-02-19 10:39:10 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-19 10:39:32 | ERROR    | db | Failed to load sp_core_df: (psycopg2.OperationalError) connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3309, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 711, in checkout
+    rec = pool._do_get()
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 673, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 899, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\src\common\db.py", line 44, in <module>
+    sp_core_df = pd.read_sql(sp_core_base_query, engine)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 700, in read_sql
+    with pandasSQL_builder(con) as pandas_sql:
+         ~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 908, in pandasSQL_builder
+    return SQLDatabase(con, schema, need_transaction)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1649, in __init__
+    con = self.exit_stack.enter_context(con.connect())
+                                        ~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3285, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        err, dialect, engine
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3309, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 711, in checkout
+    rec = pool._do_get()
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 673, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 899, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-02-19 10:47:35 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-19 10:47:35 | INFO     | db | Database engine created successfully
+2026-02-19 10:47:35 | INFO     | db | Starting Data Download at 2026-02-19 10:47:35
+2026-02-19 10:47:35 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-19 10:47:45 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9 | time: 9.65s
+2026-02-19 10:47:45 | DEBUG    | db | Executing query: sp_data
+2026-02-19 10:49:19 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 93.68s
+2026-02-19 10:49:19 | DEBUG    | db | Executing query: mx_core_table
+2026-02-19 11:18:47 | ERROR    | db | Failed to load mx_df: Execution failed on sql '
+select *
+from data_dev.mx_core_table
+': (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1679, in execute
+    return execute_function(sql, *args)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\src\common\db.py", line 78, in <module>
+    mx_df = pd.read_sql(mx_query, engine)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 730, in read_sql
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype=dtype,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1856, in read_query
+    result = self.execute(sql, params)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1681, in execute
+    raise DatabaseError(f"Execution failed on sql '{sql}': {exc}") from exc
+pandas.errors.DatabaseError: Execution failed on sql '
+select *
+from data_dev.mx_core_table
+': (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-02-19 11:19:39 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-19 11:19:39 | INFO     | db | Database engine created successfully
+2026-02-19 11:19:39 | INFO     | db | Starting Data Download at 2026-02-19 11:19:39
+2026-02-19 11:19:39 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-19 11:19:54 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9 | time: 14.79s
+2026-02-19 11:19:54 | DEBUG    | db | Executing query: sp_data
+2026-02-19 11:21:15 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 81.29s
+2026-02-19 11:21:15 | DEBUG    | db | Executing query: mx_core_table
