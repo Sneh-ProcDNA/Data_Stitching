@@ -22,7 +22,7 @@ sp_diagnosis_df = sp_core_df.copy()
 logger.debug("Extracting ICD codes from SP data")
 
 sp_diagnosis_df['icd_code'] = sp_diagnosis_df['sp_patient_id'].apply(get_icd_code_from_data, args=(sp_data_df,))
-logger.info(f"ICD codes from SP data populated for {sp_core_df['icd_code'].notna().sum()} records")
+logger.info(f"ICD codes from SP data populated for {sp_diagnosis_df['icd_code'].notna().sum()} records")
 
 logger.debug("Extracting ICD codes from claims")
 sp_diagnosis_df['icd_code_claims'] = sp_diagnosis_df.apply(
@@ -30,7 +30,7 @@ sp_diagnosis_df['icd_code_claims'] = sp_diagnosis_df.apply(
     axis=1,
     args=(mx_df,)
 )
-logger.info(f"ICD codes from claims populated for {sp_core_df['icd_code_claims'].notna().sum()} records")
+logger.info(f"ICD codes from claims populated for {sp_diagnosis_df['icd_code_claims'].notna().sum()} records")
 
 logger.debug("Generating diagnosis flags (parent and exact)")
 sp_diagnosis_df[['parent_diag_code_flag', 'exact_diag_code_flag']] = sp_diagnosis_df.apply(
@@ -39,8 +39,8 @@ sp_diagnosis_df[['parent_diag_code_flag', 'exact_diag_code_flag']] = sp_diagnosi
     result_type='expand'
 )
 logger.info(
-    f"Diagnosis flags generated | parent_diag_code_flag=True: {sp_core_df['parent_diag_code_flag'].sum()} "
-    f"| exact_diag_code_flag=True: {sp_core_df['exact_diag_code_flag'].sum()}"
+    f"Diagnosis flags generated | parent_diag_code_flag=True: {sp_diagnosis_df['parent_diag_code_flag'].sum()} "
+    f"| exact_diag_code_flag=True: {sp_diagnosis_df['exact_diag_code_flag'].sum()}"
 )
 
 logger.debug("Calculating diagnosis frequency per patient row")
@@ -49,7 +49,7 @@ for _, row in sp_diagnosis_df.iterrows():
     freqs.append(calculate_diag_freq(row, mx_df))
 
 sp_diagnosis_df['diag_freq'] = freqs
-logger.info(f"Diagnosis frequency calculated | mean={sp_core_df['diag_freq'].mean():.2f} | max={sp_core_df['diag_freq'].max()}")
+logger.info(f"Diagnosis frequency calculated | mean={sp_diagnosis_df['diag_freq'].mean():.2f} | max={sp_diagnosis_df['diag_freq'].max()}")
 
 logger.debug("Generating diagnosis lookback windows (90, 180, 360 days)")
 sp_diagnosis_df[['90_days_lookback_freq', '180_days_lookback_freq', '360_days_lookback_freq']] = sp_diagnosis_df.apply(
@@ -148,11 +148,12 @@ sp_core_copy['exact_fill_date_flag'] = sp_core_copy.groupby(['sp_patient_id', 'm
 sp_core_copy['lag_fill_date_flag'] = sp_core_copy.groupby(['sp_patient_id', 'matched_patient_id'])['lag_fill_flag'].transform(lambda x: 1 if (x == 1).any() else 0)
 sp_core_copy['days_supply_final_flag'] = sp_core_copy.groupby(['sp_patient_id', 'matched_patient_id'])['days_supply_flag'].transform(lambda x: 1 if (x == 1).any() else 0)
 sp_core_copy['quantity_final_flag'] = sp_core_copy.groupby(['sp_patient_id', 'matched_patient_id'])['quantity_flag'].transform(lambda x: 1 if (x == 1).any() else 0)
-sp_core_copy = sp_core_copy.drop(columns=['rx_flag', 'exact_fill_flag', 'lag_fill_flag', 'days_supply_flag', 'quantity_flag'])
 logger.info(
     f"Quantity flags | days_supply_flag=True: {sp_core_copy['days_supply_flag'].sum()} "
     f"| quantity_flag=True: {sp_core_copy['quantity_flag'].sum()}"
 )
+sp_core_copy = sp_core_copy.drop(columns=['rx_flag', 'exact_fill_flag', 'lag_fill_flag', 'days_supply_flag', 'quantity_flag'])
+
 sp_dispense_final_df = sp_core_copy.copy()
 sp_dispense_final_df = sp_dispense_final_df.drop_duplicates(subset=['sp_prescriber_npi', 'sp_patient_id', 'matched_patient_id'])
 
@@ -216,7 +217,7 @@ timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 sp_therapy_df.to_excel(f"outputs/therapy_rules_{timestamp}.xlsx", index=False)
 sp_dispense_final_df.to_excel(f"outputs/dispense_rules_{timestamp}.xlsx", index=False)
 sp_diagnosis_df.to_excel(f"outputs/diagnosis_validation_{timestamp}.xlsx", index=False)
-sp_payor_core_df.to_excel(f"outputs/diagnosis_validation_{timestamp}.xlsx", index=False)
+sp_payor_core_df.to_excel(f"outputs/payor_core_{timestamp}.xlsx", index=False)
 
 logger.info(f"Results exported to outputs/ | therapy_rules: {len(sp_therapy_df)} rows | dispense_rules: {len(sp_dispense_final_df)} rows | diagnosis_validation: {len(sp_diagnosis_df)} rows | payor_rules: {len(sp_payor_core_df)} rows")
 
