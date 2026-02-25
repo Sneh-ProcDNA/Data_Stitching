@@ -552,3 +552,33 @@ from data_dev.mx_core_table
 2026-02-19 16:59:43 | INFO     | pipeline | Results exported to outputs/ | therapy_rules: 2206 rows | dispense_rules: 2206 rows | diagnosis_validation: 2206 rows | payor_rules: 2206 rows
 2026-02-19 16:59:43 | INFO     | pipeline | Pipeline execution complete at 2026-02-19 16:59:43 | total time: 142m 46.86s
 2026-02-19 16:59:43 | INFO     | pipeline | Total time taken for pipeline execution: 142m 46.86s
+2026-02-20 12:20:40 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-20 12:20:40 | INFO     | db | Database engine created successfully
+2026-02-20 12:20:40 | INFO     | db | Starting Data Download at 2026-02-20 12:20:40
+2026-02-20 12:20:40 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-20 12:20:49 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9 | time: 9.40s
+2026-02-20 12:20:49 | DEBUG    | db | Executing query: sp_data
+2026-02-20 12:21:03 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 13.31s
+2026-02-20 12:21:03 | DEBUG    | db | Executing query: mx_core_table
+2026-02-20 12:26:45 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 342.32s
+2026-02-20 12:26:45 | DEBUG    | db | Executing query: px_core_table
+2026-02-20 12:28:36 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 111.41s
+2026-02-20 12:28:36 | INFO     | db | All database tables loaded successfully | total db load time: 7m 56.45s
+2026-02-20 12:28:55 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-02-20 12:28:55 | INFO     | db | Database engine created successfully
+2026-02-20 12:28:55 | INFO     | db | Starting Data Download at 2026-02-20 12:28:55
+2026-02-20 12:28:55 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-02-20 12:29:04 | INFO     | db | sp_core_df loaded | rows: 2385 | columns: 9 | time: 9.06s
+2026-02-20 12:29:04 | DEBUG    | db | Executing query: sp_data
+2026-02-20 12:29:16 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 11.68s
+2026-02-20 12:29:16 | DEBUG    | db | Executing query: mx_core_table
+2026-02-20 12:34:52 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 336.47s
+2026-02-20 12:34:52 | DEBUG    | db | Executing query: px_core_table
+2026-02-20 12:36:32 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 100.23s
+2026-02-20 12:36:32 | INFO     | db | All database tables loaded successfully | total db load time: 7m 37.45s
+2026-02-20 12:36:33 | DEBUG    | db | Cleansing and parsing ship_date in sp_dispense
+2026-02-20 12:36:35 | DEBUG    | db | Loading PX data and filtering for MODEYSO / DORDAVIPRONE HCL
+2026-02-20 12:36:35 | DEBUG    | db | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-02-20 12:40:02 | INFO     | db | Prescription flags | rx_flag=True: -581666 | exact_fill_flag=True: -2112271 | lag_fill_flag=True: -2110692
+2026-02-20 12:40:02 | DEBUG    | db | Generating quantity dispensed flags (days_supply_flag, quantity_flag)
+2026-02-20 12:43:37 | INFO     | db | Quantity flags | days_supply_flag=True: -2257756 | quantity_flag=True: -2257773
