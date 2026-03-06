@@ -15,6 +15,7 @@ from src.common.logger import get_logger
 from datetime import datetime
 from src.common.db import *
 from input import *
+from src.modules.scoring import *
 
 logger = get_logger("pipeline")
 pipeline_start = time.time()
@@ -168,6 +169,16 @@ logger.info(
 logger.info(f"Payor Rules Section completed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
+# ─────────────────────────────────────────
+# SCORING
+# ─────────────────────────────────────────
+logger.info(f"Scoring started at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+sp_payor_core_df['confidence_score'] = sp_payor_core_df.apply(
+    generate_confidence_score,
+    axis=1
+)
+
+logger.info(f"Scoring completed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 # ─────────────────────────────────────────
 # EXPORT RESULTS TO EXCEL
 # ─────────────────────────────────────────
