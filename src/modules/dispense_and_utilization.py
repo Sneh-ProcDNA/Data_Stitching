@@ -1,6 +1,6 @@
 from src.modules.therapy_history import *
 from src.common.db import *
-
+from input import *
 
 
 def cleanse_ship_date(ship_date):
@@ -19,8 +19,8 @@ def cleanse_ship_date(ship_date):
 
 def generate_prescription_flag(row):
     transaction_result = row['transaction_result']
-    sp_rx = row['rx_written_date']
-    cl_rx = row['date_prescription_written']
+    sp_rx = row[prescription_written_date_sp]
+    cl_rx = row[prescription_written_date_claims]
 
     sp_fill = row['ship_date']
     cl_fill = row['fill_date']
@@ -42,7 +42,7 @@ def generate_prescription_flag(row):
         days_lag *= -1
 
     exact_fill_flag = 1 if sp_fill == cl_fill else 0
-    lag_fill_flag = 1 if days_lag <= 7 else 0
+    lag_fill_flag = 1 if days_lag <= dispense_lag else 0
 
     return rx_flag, exact_fill_flag, lag_fill_flag 
 
@@ -72,7 +72,7 @@ def generate_quantity_dispensed_flag(row):
 
     days_lag = abs((cl_fill - sp_fill).days)
     
-    if days_lag <= 7:
+    if days_lag <= dispense_lag:
         days_supply_flag = 1 if sp_days_supply == claims_days_supply else 0
         quantity_flag = 1 if sp_dispense_quantity == claims_dispense_quantity else 0
 

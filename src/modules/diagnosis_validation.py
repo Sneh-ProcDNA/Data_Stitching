@@ -2,24 +2,25 @@ import re
 from pandas import DataFrame
 from datetime import datetime, timedelta
 from src.common.db import *
+from input import *
 
 def get_icd_code_from_data(patient_id, sp_data):
     icd_codes_per_patient: list[str] = (
-                                            sp_data.loc[sp_data['patient_id'] == patient_id, 'primary_icd_code']
+                                            sp_data.loc[sp_data[claims_patient_id_in_claims] == patient_id, 'primary_icd_code']
                                             .dropna()
                                             .unique()
                                         )
 
     for code in icd_codes_per_patient:
-        if code.startswith('C71'):
+        if code.startswith(parent_icd_code):
             return code.replace('.', '')
 
 
 
 
 def get_icd_code_from_claims(row, claims):
-    patient_id = row['matched_patient_id']
-    sp_diag_code = row['icd_code']
+    patient_id = row[claims_patient_id_column_in_core_table]
+    sp_diag_code = row[sp_icd_code_column]
 
     if pd.isna(patient_id) or pd.isna(sp_diag_code):
         return None
@@ -28,7 +29,7 @@ def get_icd_code_from_claims(row, claims):
     parent = sp_diag_code[:3] 
 
     dx_values = (
-        claims.loc[claims['patient_id'] == patient_id, 'diagnosis_codes']
+        claims.loc[claims[claims_patient_id_in_claims] == patient_id, claims_icd_code_column]
         .dropna()
         .unique()
     )
@@ -49,8 +50,8 @@ def get_icd_code_from_claims(row, claims):
 
 
 def generate_diagnosis_flags(row):
-    exact_sp_diag_code = row['icd_code']
-    exact_claims_diag_code = row['icd_code_claims']
+    exact_sp_diag_code = row[sp_icd_code_column]
+    exact_claims_diag_code = row[exact_claims_diag_code]
 
     if pd.isna(exact_claims_diag_code) or pd.isna(exact_sp_diag_code):
         return -1, -1
@@ -67,10 +68,10 @@ def generate_diagnosis_flags(row):
     
 
 def calculate_diag_freq(row, mx_df):
-    claims_patient_id = row['matched_patient_id']
+    claims_patient_id = row[claims_patient_id_column_in_core_table]
     parent_diag_code_flag = row['parent_diag_code_flag']
     exact_diag_code_flag = row['exact_diag_code_flag']
-    icd_code_claims = row['icd_code_claims']
+    icd_code_claims = row[exact_claims_diag_code]
 
     freq = 0
 
@@ -78,8 +79,8 @@ def calculate_diag_freq(row, mx_df):
         return -1
 
     if exact_diag_code_flag == 1 and pd.notna(claims_patient_id) and pd.notna(icd_code_claims):
-        filtered_df = mx_df.loc[mx_df['patient_id'] == claims_patient_id]
-        icd_codes = filtered_df['diagnosis_codes'].dropna().astype(str).values
+        filtered_df = mx_df.loc[mx_df[claims_patient_id_in_claims] == claims_patient_id]
+        icd_codes = filtered_df[claims_icd_code_column].dropna().astype(str).values
 
         target = str(icd_code_claims)
         for code in icd_codes:
@@ -95,9 +96,9 @@ def calculate_diag_freq(row, mx_df):
 
 
 def generate_diagnosis_lookback(row, sp_data: DataFrame, mx_df):
-    sp_patient_id = row['sp_patient_id']
-    claims_patient_id = row['matched_patient_id']
-    icd_code = row['icd_code']
+    sp_patient_id = row[sp_patient_id_column_in_core_table]
+    claims_patient_id = row[claims_patient_id_column_in_core_table]
+    icd_code = row[sp_icd_code_column]
     exact_diag_code_flag = row['exact_diag_code_flag']
 
     if exact_diag_code_flag == -1 or pd.isna(icd_code):
@@ -107,7 +108,7 @@ def generate_diagnosis_lookback(row, sp_data: DataFrame, mx_df):
         return 0, 0, 0
     
     sp_ref_dates = pd.to_datetime(
-        sp_data.loc[sp_data['patient_id'] == sp_patient_id, 'referral_date'],
+        sp_data.loc[sp_data[claims_patient_id_in_claims] == sp_patient_id, 'referral_date'],
         errors='coerce'
     )
 
@@ -120,7 +121,7 @@ def generate_diagnosis_lookback(row, sp_data: DataFrame, mx_df):
     date_180_days_before = max_referral_date - timedelta(days=180)
     date_360_days_before = max_referral_date - timedelta(days=360)
 
-    claims = mx_df.loc[mx_df['patient_id'] == claims_patient_id].copy()
+    claims = mx_df.loc[mx_df[claims_patient_id_in_claims] == claims_patient_id].copy()
     claims['service_date'] = pd.to_datetime(claims['service_date'], errors='coerce')
 
     claims = claims.dropna(subset=['service_date'])
@@ -131,9 +132,9 @@ def generate_diagnosis_lookback(row, sp_data: DataFrame, mx_df):
 
     icd_code_str = str(icd_code)
 
-    mask_90 = claims_before_90_days['diagnosis_codes'].astype(str).str.contains(icd_code_str, na=False)
-    mask_180 = claims_before_180_days['diagnosis_codes'].astype(str).str.contains(icd_code_str, na=False)
-    mask_360 = claims_before_360_days['diagnosis_codes'].astype(str).str.contains(icd_code_str, na=False)
+    mask_90 = claims_before_90_days[claims_icd_code_column].astype(str).str.contains(icd_code_str, na=False)
+    mask_180 = claims_before_180_days[claims_icd_code_column].astype(str).str.contains(icd_code_str, na=False)
+    mask_360 = claims_before_360_days[claims_icd_code_column].astype(str).str.contains(icd_code_str, na=False)
 
     return int(mask_90.sum()), int(mask_180.sum()), int(mask_360.sum()) 
 
@@ -144,8 +145,8 @@ def generate_diagnosis_lookback(row, sp_data: DataFrame, mx_df):
 
 
 def generate_lookback_frequency(row, mx_df):
-    icd_code = row.get('icd_code')
-    claims_patient_id = row.get('matched_patient_id')
+    icd_code = row.get(sp_icd_code_column)
+    claims_patient_id = row.get(claims_patient_id_column_in_core_table)
 
     if pd.isna(icd_code) or pd.isna(claims_patient_id):
         return -1
@@ -153,8 +154,8 @@ def generate_lookback_frequency(row, mx_df):
     pattern = rf'(?:^|[^A-Z0-9]){re.escape(str(icd_code))}(?:[^A-Z0-9]|$)'
 
     claims_filtered = mx_df.loc[
-        (mx_df['patient_id'] == claims_patient_id) &
-        (mx_df['diagnosis_codes'].astype(str).str.contains(pattern, na=False, regex=True))
+        (mx_df[claims_patient_id_in_claims] == claims_patient_id) &
+        (mx_df[claims_icd_code_column].astype(str).str.contains(pattern, na=False, regex=True))
     ].copy()
 
     if claims_filtered.empty:

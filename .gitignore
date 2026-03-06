@@ -5,5 +5,4 @@ __pycache__/
 .env
 *.csv
 *.xlsx
-data_stitching.ipynb
-data_stitching 1.ipynb
+*.log
