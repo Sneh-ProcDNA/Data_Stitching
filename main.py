@@ -187,12 +187,10 @@ logger.info("Exporting results to Excel")
 os.makedirs("outputs", exist_ok=True)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-sp_therapy_df.to_excel(f"outputs/therapy_rules_{timestamp}.xlsx", index=False)
-sp_dispense_final_df.to_excel(f"outputs/dispense_rules_{timestamp}.xlsx", index=False)
-sp_diagnosis_df.to_excel(f"outputs/diagnosis_validation_{timestamp}.xlsx", index=False)
-sp_payor_core_df.to_excel(f"outputs/payor_core_{timestamp}.xlsx", index=False)
+sp_payor_core_df.to_excel(f"outputs/therapy_rules_{timestamp}.xlsx", index=False)
 
-logger.info(f"Results exported to outputs/ | therapy_rules: {len(sp_therapy_df)} rows | dispense_rules: {len(sp_dispense_final_df)} rows | diagnosis_validation: {len(sp_diagnosis_df)} rows | payor_rules: {len(sp_payor_core_df)} rows")
+
+logger.info(f"Results exported to outputs/: {len(sp_payor_core_df)} rows")
 
 # ─────────────────────────────────────────
 # PIPELINE COMPLETE

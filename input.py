@@ -1,4 +1,4 @@
-parent_icd_code='C71'
+# parent_icd_code='C71'
 claims_patient_id_column_in_core_table='matched_patient_id'
 npi_column_in_core_table='sp_prescriber_npi'
 sp_patient_id_column_in_core_table='sp_patient_id'

@@ -12,7 +12,7 @@ def get_icd_code_from_data(patient_id, sp_data):
                                         )
 
     for code in icd_codes_per_patient:
-        if code.startswith(parent_icd_code):
+        # if code.startswith(parent_icd_code):
             return code.replace('.', '')
 
 
