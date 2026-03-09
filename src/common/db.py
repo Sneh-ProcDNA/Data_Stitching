@@ -35,7 +35,7 @@ logger.info(f"Starting Data Download at {datetime.now().strftime('%Y-%m-%d %H:%M
 # ─────────────────────────────────────────
 sp_core_base_query = """
 select *
-from data_dev.sp_komodo_core_base
+from data_dev.f_90_days
 """
 
 logger.debug("Executing query: sp_komodo_core_base")

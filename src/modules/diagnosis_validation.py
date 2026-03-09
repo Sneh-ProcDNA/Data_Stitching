@@ -51,15 +51,15 @@ def get_icd_code_from_claims(row, claims):
 
 def generate_diagnosis_flags(row):
     exact_sp_diag_code = row[sp_icd_code_column]
-    exact_claims_diag_code = row[exact_claims_diag_code]
+    exact_claims_diag_code_local = row[exact_claims_diag_code]
 
-    if pd.isna(exact_claims_diag_code) or pd.isna(exact_sp_diag_code):
+    if pd.isna(exact_claims_diag_code_local) or pd.isna(exact_sp_diag_code):
         return -1, -1
 
     parent_sp_diag_code = str(exact_sp_diag_code)[:3]
-    parent_claims_diag_code = str(exact_claims_diag_code)[:3]
+    parent_claims_diag_code = str(exact_claims_diag_code_local)[:3]
 
-    exact_match = 1 if exact_sp_diag_code == exact_claims_diag_code else 0
+    exact_match = 1 if exact_sp_diag_code == exact_claims_diag_code_local else 0
     parent_match = 1 if parent_sp_diag_code == parent_claims_diag_code else 0
 
     return parent_match, exact_match

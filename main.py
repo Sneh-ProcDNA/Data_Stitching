@@ -116,6 +116,11 @@ sp_core_copy['exact_fill_date_flag'] = sp_core_copy.groupby([sp_patient_id_colum
 sp_core_copy['lag_fill_date_flag'] = sp_core_copy.groupby([sp_patient_id_column_in_core_table, claims_patient_id_column_in_core_table])[lag_fill_date_match_flag].transform(lambda x: 1 if (x == 1).any() else 0)
 
 sp_core_copy = sp_core_copy.drop(columns=[rx_date_match_flag, exact_fill_date_match_flag, lag_fill_date_match_flag])
+sp_core_copy['diagnosis_days_lag'] = sp_core_copy.apply(
+    calculate_days_between_dates,
+    axis=1
+)
+
 
 sp_dispense_final_df = sp_core_copy.copy()
 sp_dispense_final_df = sp_dispense_final_df.drop_duplicates(subset=[npi_column_in_core_table, sp_patient_id_column_in_core_table, claims_patient_id_column_in_core_table])
@@ -187,7 +192,7 @@ logger.info("Exporting results to Excel")
 os.makedirs("outputs", exist_ok=True)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-sp_payor_core_df.to_excel(f"outputs/therapy_rules_{timestamp}.xlsx", index=False)
+sp_payor_core_df.to_excel(f"outputs/patient_matching_{timestamp}.xlsx", index=False)
 
 
 logger.info(f"Results exported to outputs/: {len(sp_payor_core_df)} rows")

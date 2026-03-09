@@ -1,7 +1,7 @@
 from src.modules.therapy_history import *
 from src.common.db import *
 from input import *
-
+import numpy as np
 
 def cleanse_ship_date(ship_date):
     if ship_date is None or pd.isna(ship_date):
@@ -79,3 +79,16 @@ def generate_quantity_dispensed_flag(row):
         return days_supply_flag, quantity_flag
     
     return 0, 0
+
+
+
+def calculate_days_between_dates(row):
+    referral_date = row['referral_date']
+    service_date = row['service_date']
+
+    if pd.isna(referral_date) or pd.isna(service_date):
+        return np.inf
+    
+    days_difference = (service_date - referral_date).days
+
+    return abs(days_difference)

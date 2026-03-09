@@ -582,3 +582,215 @@ from data_dev.mx_core_table
 2026-02-20 12:40:02 | INFO     | db | Prescription flags | rx_flag=True: -581666 | exact_fill_flag=True: -2112271 | lag_fill_flag=True: -2110692
 2026-02-20 12:40:02 | DEBUG    | db | Generating quantity dispensed flags (days_supply_flag, quantity_flag)
 2026-02-20 12:43:37 | INFO     | db | Quantity flags | days_supply_flag=True: -2257756 | quantity_flag=True: -2257773
+2026-03-06 15:37:25 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-06 15:37:26 | INFO     | db | Database engine created successfully
+2026-03-06 15:37:26 | INFO     | db | Starting Data Download at 2026-03-06 15:37:26
+2026-03-06 15:37:26 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-06 15:40:54 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-06 15:40:55 | INFO     | db | Database engine created successfully
+2026-03-06 15:40:55 | INFO     | db | Starting Data Download at 2026-03-06 15:40:55
+2026-03-06 15:40:55 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-06 15:41:00 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 5.52s
+2026-03-06 15:41:00 | DEBUG    | db | Executing query: sp_data
+2026-03-06 15:41:02 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 2.15s
+2026-03-06 15:41:02 | DEBUG    | db | Executing query: mx_core_table
+2026-03-06 15:41:31 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 28.63s
+2026-03-06 15:41:31 | DEBUG    | db | Executing query: px_core_table
+2026-03-06 15:41:59 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 28.55s
+2026-03-06 15:41:59 | INFO     | db | All database tables loaded successfully | total db load time: 1m 4.87s
+2026-03-06 15:42:06 | INFO     | pipeline | Starting Pipeline at 2026-03-06 15:42:06
+2026-03-06 15:42:06 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-06 15:42:06
+2026-03-06 15:42:06 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-06 15:42:13 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-06 15:42:13 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-06 16:05:30 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-06 16:05:30 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-06 17:12:43 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-06 17:12:44 | INFO     | db | Database engine created successfully
+2026-03-06 17:12:44 | INFO     | db | Starting Data Download at 2026-03-06 17:12:44
+2026-03-06 17:12:44 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-06 17:12:52 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 8.51s
+2026-03-06 17:12:52 | DEBUG    | db | Executing query: sp_data
+2026-03-06 17:13:01 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 9.37s
+2026-03-06 17:13:01 | DEBUG    | db | Executing query: mx_core_table
+2026-03-06 17:17:25 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 263.12s
+2026-03-06 17:17:25 | DEBUG    | db | Executing query: px_core_table
+2026-03-06 17:18:47 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 82.28s
+2026-03-06 17:18:47 | INFO     | db | All database tables loaded successfully | total db load time: 6m 3.29s
+2026-03-06 17:18:59 | INFO     | pipeline | Starting Pipeline at 2026-03-06 17:18:59
+2026-03-06 17:18:59 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-06 17:18:59
+2026-03-06 17:18:59 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-06 17:19:04 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-06 17:19:04 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-06 17:30:49 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-06 17:30:49 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-06 17:30:49 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-06 17:30:49 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-06 17:30:49
+2026-03-06 17:30:49 | INFO     | pipeline | Therapy Rules Section started at 2026-03-06 17:30:49
+2026-03-09 11:56:18 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-09 11:56:18 | INFO     | db | Database engine created successfully
+2026-03-09 11:56:18 | INFO     | db | Starting Data Download at 2026-03-09 11:56:18
+2026-03-09 11:56:18 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-09 11:56:27 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 8.83s
+2026-03-09 11:56:27 | DEBUG    | db | Executing query: sp_data
+2026-03-09 11:56:35 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 7.57s
+2026-03-09 11:56:35 | DEBUG    | db | Executing query: mx_core_table
+2026-03-09 11:58:54 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 138.95s
+2026-03-09 11:58:54 | DEBUG    | db | Executing query: px_core_table
+2026-03-09 12:00:08 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 74.65s
+2026-03-09 12:00:08 | INFO     | db | All database tables loaded successfully | total db load time: 3m 50.00s
+2026-03-09 12:00:20 | INFO     | pipeline | Starting Pipeline at 2026-03-09 12:00:20
+2026-03-09 12:00:20 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-09 12:00:20
+2026-03-09 12:00:20 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-09 12:00:23 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-09 12:00:23 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-09 12:21:52 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-09 12:21:52 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-09 12:21:52 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-09 12:21:52 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-09 12:21:52
+2026-03-09 12:21:52 | INFO     | pipeline | Therapy Rules Section started at 2026-03-09 12:21:52
+2026-03-09 14:48:24 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-09 14:48:24 | INFO     | db | Database engine created successfully
+2026-03-09 14:48:24 | INFO     | db | Starting Data Download at 2026-03-09 14:48:24
+2026-03-09 14:48:24 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-09 14:48:25 | ERROR    | db | Failed to load sp_core_df: (psycopg2.OperationalError) connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: fe_sendauth: no password supplied
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3309, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 711, in checkout
+    rec = pool._do_get()
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 673, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 899, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: fe_sendauth: no password supplied
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\src\common\db.py", line 44, in <module>
+    sp_core_df = pd.read_sql(sp_core_base_query, engine)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 700, in read_sql
+    with pandasSQL_builder(con) as pandas_sql:
+         ~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 908, in pandasSQL_builder
+    return SQLDatabase(con, schema, need_transaction)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1649, in __init__
+    con = self.exit_stack.enter_context(con.connect())
+                                        ~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3285, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        err, dialect, engine
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3309, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 711, in checkout
+    rec = pool._do_get()
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 673, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 899, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: fe_sendauth: no password supplied
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-09 14:49:07 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-09 14:49:07 | INFO     | db | Database engine created successfully
+2026-03-09 14:49:07 | INFO     | db | Starting Data Download at 2026-03-09 14:49:07
+2026-03-09 14:49:07 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-09 14:49:14 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 7.13s
+2026-03-09 14:49:14 | DEBUG    | db | Executing query: sp_data
+2026-03-09 14:49:17 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 2.09s
+2026-03-09 14:49:17 | DEBUG    | db | Executing query: mx_core_table
+2026-03-09 14:49:47 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 30.61s
+2026-03-09 14:49:47 | DEBUG    | db | Executing query: px_core_table
+2026-03-09 14:50:06 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 18.33s
+2026-03-09 14:50:06 | INFO     | db | All database tables loaded successfully | total db load time: 0m 58.18s
+2026-03-09 14:50:12 | INFO     | pipeline | Starting Pipeline at 2026-03-09 14:50:12
+2026-03-09 14:50:12 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-09 14:50:12
+2026-03-09 14:50:12 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-09 14:50:17 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-09 14:50:17 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-09 15:02:09 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-09 15:02:09 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-09 15:02:09 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-09 15:02:09 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-09 15:02:09
+2026-03-09 15:02:09 | INFO     | pipeline | Therapy Rules Section started at 2026-03-09 15:02:09
