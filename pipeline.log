@@ -794,3 +794,680 @@ sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to serve
 2026-03-09 15:02:09 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
 2026-03-09 15:02:09 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-09 15:02:09
 2026-03-09 15:02:09 | INFO     | pipeline | Therapy Rules Section started at 2026-03-09 15:02:09
+2026-03-09 16:09:16 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-09 16:09:17 | INFO     | db | Database engine created successfully
+2026-03-09 16:09:17 | INFO     | db | Starting Data Download at 2026-03-09 16:09:17
+2026-03-09 16:09:17 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-09 16:09:23 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 6.66s
+2026-03-09 16:09:23 | DEBUG    | db | Executing query: sp_data
+2026-03-09 16:09:26 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 2.93s
+2026-03-09 16:09:26 | DEBUG    | db | Executing query: mx_core_table
+2026-03-09 16:09:52 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 25.39s
+2026-03-09 16:09:52 | DEBUG    | db | Executing query: px_core_table
+2026-03-09 16:10:01 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 9.73s
+2026-03-09 16:10:01 | INFO     | db | All database tables loaded successfully | total db load time: 0m 44.72s
+2026-03-09 16:10:07 | INFO     | pipeline | Starting Pipeline at 2026-03-09 16:10:07
+2026-03-09 16:10:07 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-09 16:10:07
+2026-03-09 16:10:07 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-09 16:10:11 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-09 16:10:11 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-10 12:47:44 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-10 12:47:44 | INFO     | db | Database engine created successfully
+2026-03-10 12:47:44 | INFO     | db | Starting Data Download at 2026-03-10 12:47:44
+2026-03-10 12:47:44 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-10 12:47:45 | ERROR    | db | Failed to load sp_core_df: (psycopg2.OperationalError) connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: fe_sendauth: no password supplied
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3309, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 711, in checkout
+    rec = pool._do_get()
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 673, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 899, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: fe_sendauth: no password supplied
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\src\common\db.py", line 44, in <module>
+    sp_core_df = pd.read_sql(sp_core_base_query, engine)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 700, in read_sql
+    with pandasSQL_builder(con) as pandas_sql:
+         ~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 908, in pandasSQL_builder
+    return SQLDatabase(con, schema, need_transaction)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1649, in __init__
+    con = self.exit_stack.enter_context(con.connect())
+                                        ~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3285, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        err, dialect, engine
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3309, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 711, in checkout
+    rec = pool._do_get()
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 673, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 899, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com" (100.48.200.209), port 5432 failed: fe_sendauth: no password supplied
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-10 12:49:23 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-10 12:49:23 | INFO     | db | Database engine created successfully
+2026-03-10 12:49:23 | INFO     | db | Starting Data Download at 2026-03-10 12:49:23
+2026-03-10 12:49:23 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-10 12:49:37 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 14.28s
+2026-03-10 12:49:37 | DEBUG    | db | Executing query: sp_data
+2026-03-10 12:50:05 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 28.06s
+2026-03-10 12:50:05 | DEBUG    | db | Executing query: mx_core_table
+2026-03-10 13:02:34 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 748.85s
+2026-03-10 13:02:34 | DEBUG    | db | Executing query: px_core_table
+2026-03-10 13:05:41 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 186.66s
+2026-03-10 13:05:41 | INFO     | db | All database tables loaded successfully | total db load time: 16m 17.86s
+2026-03-10 13:06:05 | INFO     | pipeline | Starting Pipeline at 2026-03-10 13:06:05
+2026-03-10 13:06:05 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-10 13:06:05
+2026-03-10 13:06:05 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-10 13:06:06 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-10 13:06:06 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-10 13:10:53 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-10 13:10:53 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-10 13:10:54 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-10 13:10:54 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-10 13:10:54
+2026-03-10 13:10:54 | INFO     | pipeline | Therapy Rules Section started at 2026-03-10 13:10:54
+2026-03-10 13:10:54 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-10 13:10:54
+2026-03-10 13:10:54 | INFO     | pipeline | Dispense Rules Section started at 2026-03-10 13:10:54
+2026-03-10 13:14:11 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-10 13:14:11 | INFO     | db | Database engine created successfully
+2026-03-10 13:14:11 | INFO     | db | Starting Data Download at 2026-03-10 13:14:11
+2026-03-10 13:14:11 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-10 13:14:23 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 11.89s
+2026-03-10 13:14:23 | DEBUG    | db | Executing query: sp_data
+2026-03-10 13:15:03 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 40.39s
+2026-03-10 13:15:03 | DEBUG    | db | Executing query: mx_core_table
+2026-03-10 13:27:22 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 738.85s
+2026-03-10 13:27:22 | DEBUG    | db | Executing query: px_core_table
+2026-03-10 13:31:39 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 257.12s
+2026-03-10 13:31:39 | INFO     | db | All database tables loaded successfully | total db load time: 17m 28.26s
+2026-03-10 13:32:19 | INFO     | pipeline | Starting Pipeline at 2026-03-10 13:32:19
+2026-03-10 13:32:19 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-10 13:32:19
+2026-03-10 13:32:19 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-10 13:32:22 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-10 13:32:22 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-10 13:46:06 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-10 13:46:06 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-10 13:46:06 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-10 13:46:06 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-10 13:46:06
+2026-03-10 13:46:06 | INFO     | pipeline | Therapy Rules Section started at 2026-03-10 13:46:06
+2026-03-10 13:46:07 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-10 13:46:07
+2026-03-10 13:46:07 | INFO     | pipeline | Dispense Rules Section started at 2026-03-10 13:46:07
+2026-03-10 13:46:10 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-10 13:53:08 | INFO     | pipeline | Prescription flags | rx_flag=True: -1605065 | exact_fill_flag=True: -6751410 | lag_fill_flag=True: -6742574
+2026-03-10 14:31:34 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-10 14:31:34 | INFO     | db | Database engine created successfully
+2026-03-10 14:31:34 | INFO     | db | Starting Data Download at 2026-03-10 14:31:34
+2026-03-10 14:31:34 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-10 14:31:57 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 22.29s
+2026-03-10 14:31:57 | DEBUG    | db | Executing query: sp_data
+2026-03-10 14:33:46 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 108.91s
+2026-03-10 14:33:46 | DEBUG    | db | Executing query: mx_core_table
+2026-03-10 15:10:41 | ERROR    | db | Failed to load mx_df: Execution failed on sql '
+select *
+from data_dev.mx_core_table
+': (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1679, in execute
+    return execute_function(sql, *args)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\src\common\db.py", line 78, in <module>
+    mx_df = pd.read_sql(mx_query, engine)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 730, in read_sql
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype=dtype,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1856, in read_query
+    result = self.execute(sql, params)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1681, in execute
+    raise DatabaseError(f"Execution failed on sql '{sql}': {exc}") from exc
+pandas.errors.DatabaseError: Execution failed on sql '
+select *
+from data_dev.mx_core_table
+': (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-10 15:11:07 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-10 15:11:07 | INFO     | db | Database engine created successfully
+2026-03-10 15:11:07 | INFO     | db | Starting Data Download at 2026-03-10 15:11:07
+2026-03-10 15:11:07 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-10 15:11:20 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 13.19s
+2026-03-10 15:11:20 | DEBUG    | db | Executing query: sp_data
+2026-03-10 15:12:56 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 96.52s
+2026-03-10 15:12:56 | DEBUG    | db | Executing query: mx_core_table
+2026-03-10 15:31:02 | ERROR    | db | Failed to load mx_df: Execution failed on sql '
+select *
+from data_dev.mx_core_table
+': (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1679, in execute
+    return execute_function(sql, *args)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\src\common\db.py", line 78, in <module>
+    mx_df = pd.read_sql(mx_query, engine)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 730, in read_sql
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype=dtype,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1856, in read_query
+    result = self.execute(sql, params)
+  File "C:\Users\SnehVirenShah\OneDrive - ProcDNA Analytics Pvt. Ltd\Desktop\Data_Stitching\.venv\Lib\site-packages\pandas\io\sql.py", line 1681, in execute
+    raise DatabaseError(f"Execution failed on sql '{sql}': {exc}") from exc
+pandas.errors.DatabaseError: Execution failed on sql '
+select *
+from data_dev.mx_core_table
+': (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+select *
+from data_dev.mx_core_table
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-10 17:09:05 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-10 17:09:06 | INFO     | db | Database engine created successfully
+2026-03-10 17:09:06 | INFO     | db | Starting Data Download at 2026-03-10 17:09:06
+2026-03-10 17:09:06 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-10 17:09:35 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 29.69s
+2026-03-10 17:09:35 | DEBUG    | db | Executing query: sp_data
+2026-03-10 17:09:38 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 2.45s
+2026-03-10 17:09:38 | DEBUG    | db | Executing query: mx_core_table
+2026-03-10 17:10:01 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 23.14s
+2026-03-10 17:10:01 | DEBUG    | db | Executing query: px_core_table
+2026-03-10 17:10:10 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 9.62s
+2026-03-10 17:10:10 | INFO     | db | All database tables loaded successfully | total db load time: 1m 4.92s
+2026-03-10 17:10:17 | INFO     | pipeline | Starting Pipeline at 2026-03-10 17:10:17
+2026-03-10 17:10:17 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-10 17:10:17
+2026-03-10 17:10:17 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-10 17:10:21 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-10 17:10:21 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-10 17:21:31 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-10 17:21:31 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-10 17:21:32 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-10 17:21:32 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-10 17:21:32
+2026-03-10 17:21:32 | INFO     | pipeline | Therapy Rules Section started at 2026-03-10 17:21:32
+2026-03-10 17:21:32 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-10 17:21:32
+2026-03-10 17:21:32 | INFO     | pipeline | Dispense Rules Section started at 2026-03-10 17:21:32
+2026-03-10 17:21:38 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-10 17:32:13 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-10 17:32:31 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-10 17:32:31
+2026-03-10 17:32:31 | INFO     | pipeline | Payor Rules Section started at 2026-03-10 17:32:31
+2026-03-10 17:32:32 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-11 16:48:16 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-11 16:48:16 | INFO     | db | Database engine created successfully
+2026-03-11 16:48:16 | INFO     | db | Starting Data Download at 2026-03-11 16:48:16
+2026-03-11 16:48:16 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-11 16:48:27 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 10.76s
+2026-03-11 16:48:27 | DEBUG    | db | Executing query: sp_data
+2026-03-11 16:48:37 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 10.85s
+2026-03-11 16:48:37 | DEBUG    | db | Executing query: mx_core_table
+2026-03-11 16:54:53 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 375.89s
+2026-03-11 16:54:53 | DEBUG    | db | Executing query: px_core_table
+2026-03-11 16:56:40 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 106.61s
+2026-03-11 16:56:40 | INFO     | db | All database tables loaded successfully | total db load time: 8m 24.13s
+2026-03-11 16:56:56 | INFO     | pipeline | Starting Pipeline at 2026-03-11 16:56:56
+2026-03-11 16:56:56 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-11 16:56:56
+2026-03-11 16:56:56 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-11 16:57:03 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-11 16:57:03 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-11 17:24:14 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-11 17:24:14 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-11 17:24:15 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-11 17:24:15 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-11 17:24:15
+2026-03-11 17:24:15 | INFO     | pipeline | Therapy Rules Section started at 2026-03-11 17:24:15
+2026-03-11 17:24:16 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-11 17:24:16
+2026-03-11 17:24:16 | INFO     | pipeline | Dispense Rules Section started at 2026-03-11 17:24:16
+2026-03-11 17:24:22 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-11 17:35:29 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-11 17:35:48 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-11 17:35:48
+2026-03-11 17:35:48 | INFO     | pipeline | Payor Rules Section started at 2026-03-11 17:35:48
+2026-03-11 17:35:49 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-17 12:28:16 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-17 12:28:16 | INFO     | db | Database engine created successfully
+2026-03-17 12:28:16 | INFO     | db | Starting Data Download at 2026-03-17 12:28:16
+2026-03-17 12:28:16 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-17 12:28:29 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 13.17s
+2026-03-17 12:28:29 | DEBUG    | db | Executing query: sp_data
+2026-03-17 12:29:25 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 56.25s
+2026-03-17 12:29:25 | DEBUG    | db | Executing query: mx_core_table
+2026-03-17 12:59:44 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 1818.19s
+2026-03-17 12:59:44 | DEBUG    | db | Executing query: px_core_table
+2026-03-17 13:11:53 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 729.26s
+2026-03-17 13:11:53 | INFO     | db | All database tables loaded successfully | total db load time: 43m 36.90s
+2026-03-17 13:12:59 | INFO     | pipeline | Starting Pipeline at 2026-03-17 13:12:59
+2026-03-17 13:12:59 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-17 13:12:59
+2026-03-17 13:12:59 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-17 13:13:06 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-17 13:13:06 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-17 13:39:47 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-17 13:39:47 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-17 13:39:47 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-17 13:39:47 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-17 13:39:47
+2026-03-17 13:39:47 | INFO     | pipeline | Therapy Rules Section started at 2026-03-17 13:39:47
+2026-03-17 13:39:48 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-17 13:39:48
+2026-03-17 13:39:48 | INFO     | pipeline | Dispense Rules Section started at 2026-03-17 13:39:48
+2026-03-17 13:39:53 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-17 13:51:24 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-17 13:51:44 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-17 13:51:44
+2026-03-17 13:51:44 | INFO     | pipeline | Payor Rules Section started at 2026-03-17 13:51:44
+2026-03-17 13:51:44 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-18 12:17:37 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-18 12:17:37 | INFO     | db | Database engine created successfully
+2026-03-18 12:17:37 | INFO     | db | Starting Data Download at 2026-03-18 12:17:37
+2026-03-18 12:17:37 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-18 12:17:47 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 9.76s
+2026-03-18 12:17:47 | DEBUG    | db | Executing query: sp_data
+2026-03-18 12:17:55 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 8.34s
+2026-03-18 12:17:55 | DEBUG    | db | Executing query: mx_core_table
+2026-03-18 12:21:00 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 184.67s
+2026-03-18 12:21:00 | DEBUG    | db | Executing query: px_core_table
+2026-03-18 12:22:25 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 84.92s
+2026-03-18 12:22:25 | INFO     | db | All database tables loaded successfully | total db load time: 4m 47.71s
+2026-03-18 12:22:38 | INFO     | pipeline | Starting Pipeline at 2026-03-18 12:22:38
+2026-03-18 12:22:38 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-18 12:22:38
+2026-03-18 12:22:38 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-18 12:22:43 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-18 12:22:43 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-18 12:34:49 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-18 12:34:49 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-18 12:34:49 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-18 12:34:49 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-18 12:34:49
+2026-03-18 12:34:49 | INFO     | pipeline | Therapy Rules Section started at 2026-03-18 12:34:49
+2026-03-18 12:34:50 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-18 12:34:50
+2026-03-18 12:34:50 | INFO     | pipeline | Dispense Rules Section started at 2026-03-18 12:34:50
+2026-03-18 12:34:54 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-18 12:45:30 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-18 12:45:45 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-18 12:45:45
+2026-03-18 12:45:45 | INFO     | pipeline | Payor Rules Section started at 2026-03-18 12:45:45
+2026-03-18 12:45:45 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-18 12:45:45 | DEBUG    | pipeline | Merging SP payor core with PX payor data on matched_patient_id
+2026-03-18 12:45:50 | DEBUG    | pipeline | Generating payor flags (vectorized)
+2026-03-18 12:45:50 | INFO     | pipeline | Payor flags generated | payor_name_flag=True: 37 | payor_type_flag=True: 240 | pbm_flag=True: 100
+2026-03-18 12:45:50 | INFO     | pipeline | Payor Rules Section completed at 2026-03-18 12:45:50
+2026-03-18 12:45:50 | INFO     | pipeline | Scoring started at 2026-03-18 12:45:50
+2026-03-18 13:10:36 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-18 13:10:36 | INFO     | db | Database engine created successfully
+2026-03-18 13:10:36 | INFO     | db | Starting Data Download at 2026-03-18 13:10:36
+2026-03-18 13:10:36 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-18 13:10:45 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 8.64s
+2026-03-18 13:10:45 | DEBUG    | db | Executing query: sp_data
+2026-03-18 13:10:57 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 11.47s
+2026-03-18 13:10:57 | DEBUG    | db | Executing query: mx_core_table
+2026-03-18 13:14:51 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 234.02s
+2026-03-18 13:14:51 | DEBUG    | db | Executing query: px_core_table
+2026-03-18 13:16:10 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 79.82s
+2026-03-18 13:16:10 | INFO     | db | All database tables loaded successfully | total db load time: 5m 33.96s
+2026-03-18 13:16:23 | INFO     | pipeline | Starting Pipeline at 2026-03-18 13:16:23
+2026-03-18 13:16:23 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-18 13:16:23
+2026-03-18 13:16:23 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-18 13:16:25 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-18 13:16:25 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-18 13:22:20 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-18 13:22:20 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-18 13:22:20 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-18 13:22:20 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-18 13:22:20
+2026-03-18 13:22:20 | INFO     | pipeline | Therapy Rules Section started at 2026-03-18 13:22:20
+2026-03-18 13:22:20 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-18 13:22:20
+2026-03-18 13:22:20 | INFO     | pipeline | Dispense Rules Section started at 2026-03-18 13:22:20
+2026-03-18 13:22:22 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-18 13:25:27 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-18 13:25:34 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-18 13:25:34
+2026-03-18 13:25:34 | INFO     | pipeline | Payor Rules Section started at 2026-03-18 13:25:34
+2026-03-18 13:25:34 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-18 13:25:34 | DEBUG    | pipeline | Merging SP payor core with PX payor data on matched_patient_id
+2026-03-18 13:25:36 | DEBUG    | pipeline | Generating payor flags (vectorized)
+2026-03-18 13:25:36 | INFO     | pipeline | Payor flags generated | payor_name_flag=True: 37 | payor_type_flag=True: 240 | pbm_flag=True: 100
+2026-03-18 13:25:36 | INFO     | pipeline | Payor Rules Section completed at 2026-03-18 13:25:36
+2026-03-18 13:25:36 | INFO     | pipeline | Merging diagnosis + dispense + therapy into final dataset
+2026-03-18 14:22:47 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-18 14:22:47 | INFO     | db | Database engine created successfully
+2026-03-18 14:22:47 | INFO     | db | Starting Data Download at 2026-03-18 14:22:47
+2026-03-18 14:22:47 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-18 14:22:56 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 8.77s
+2026-03-18 14:22:56 | DEBUG    | db | Executing query: sp_data
+2026-03-18 14:23:07 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 10.91s
+2026-03-18 14:23:07 | DEBUG    | db | Executing query: mx_core_table
+2026-03-18 14:27:56 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 289.00s
+2026-03-18 14:27:56 | DEBUG    | db | Executing query: px_core_table
+2026-03-18 14:28:46 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 49.66s
+2026-03-18 14:28:46 | INFO     | db | All database tables loaded successfully | total db load time: 5m 58.36s
+2026-03-18 14:28:55 | INFO     | pipeline | Starting Pipeline at 2026-03-18 14:28:55
+2026-03-18 14:28:55 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-18 14:28:55
+2026-03-18 14:28:55 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-18 14:28:57 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-18 14:28:57 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-18 14:34:28 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-18 14:34:28 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-18 14:34:29 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-18 14:34:29 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-18 14:34:29
+2026-03-18 14:34:29 | INFO     | pipeline | Therapy Rules Section started at 2026-03-18 14:34:29
+2026-03-18 14:34:29 | INFO     | pipeline | prior_treatment_flag created | True count: 604
+2026-03-18 14:34:29 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-18 14:34:29
+2026-03-18 14:34:29 | INFO     | pipeline | Dispense Rules Section started at 2026-03-18 14:34:29
+2026-03-18 14:34:31 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-18 14:37:06 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-18 14:37:11 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-18 14:37:11
+2026-03-18 14:37:11 | INFO     | pipeline | Payor Rules Section started at 2026-03-18 14:37:11
+2026-03-18 14:37:12 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-18 14:37:12 | DEBUG    | pipeline | Merging SP payor core with PX payor data on matched_patient_id
+2026-03-18 14:37:13 | DEBUG    | pipeline | Generating payor flags (vectorized)
+2026-03-18 14:37:13 | INFO     | pipeline | Payor flags generated | payor_name_flag=True: 37 | payor_type_flag=True: 240 | pbm_flag=True: 100
+2026-03-18 14:37:13 | INFO     | pipeline | Payor Rules Section completed at 2026-03-18 14:37:13
+2026-03-18 14:37:13 | INFO     | pipeline | Merging diagnosis + dispense + therapy into final dataset
+2026-03-18 14:37:13 | INFO     | pipeline | All features merged successfully
+2026-03-18 14:37:13 | INFO     | pipeline | Scoring started at 2026-03-18 14:37:13
+2026-03-18 14:57:54 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-18 14:57:54 | INFO     | db | Database engine created successfully
+2026-03-18 14:57:54 | INFO     | db | Starting Data Download at 2026-03-18 14:57:54
+2026-03-18 14:57:54 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-18 14:58:03 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 8.38s
+2026-03-18 14:58:03 | DEBUG    | db | Executing query: sp_data
+2026-03-18 14:58:11 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 8.24s
+2026-03-18 14:58:11 | DEBUG    | db | Executing query: mx_core_table
+2026-03-18 15:00:52 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 160.84s
+2026-03-18 15:00:52 | DEBUG    | db | Executing query: px_core_table
+2026-03-18 15:01:31 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 39.36s
+2026-03-18 15:01:31 | INFO     | db | All database tables loaded successfully | total db load time: 3m 36.82s
+2026-03-18 15:01:41 | INFO     | pipeline | Starting Pipeline at 2026-03-18 15:01:41
+2026-03-18 15:01:41 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-18 15:01:41
+2026-03-18 15:01:41 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-18 15:01:42 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-18 15:01:42 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-18 15:09:50 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-18 15:09:50 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-18 15:09:51 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-18 15:09:51 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-18 15:09:51
+2026-03-18 15:09:51 | INFO     | pipeline | Therapy Rules Section started at 2026-03-18 15:09:51
+2026-03-18 15:09:51 | INFO     | pipeline | prior_treatment_flag created | True count: 604
+2026-03-18 15:09:51 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-18 15:09:51
+2026-03-18 15:09:51 | INFO     | pipeline | Dispense Rules Section started at 2026-03-18 15:09:51
+2026-03-18 15:09:55 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-18 15:17:05 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-18 15:17:16 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-18 15:17:16
+2026-03-18 15:17:16 | INFO     | pipeline | Payor Rules Section started at 2026-03-18 15:17:16
+2026-03-18 15:17:17 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-18 15:17:17 | DEBUG    | pipeline | Merging SP payor core with PX payor data on matched_patient_id
+2026-03-18 15:17:20 | DEBUG    | pipeline | Generating payor flags (vectorized)
+2026-03-18 15:17:20 | INFO     | pipeline | Payor flags generated | payor_name_flag=True: 37 | payor_type_flag=True: 240 | pbm_flag=True: 100
+2026-03-18 15:17:20 | INFO     | pipeline | Payor Rules Section completed at 2026-03-18 15:17:20
+2026-03-18 15:17:20 | INFO     | pipeline | Final payor flags created
+2026-03-18 15:17:20 | INFO     | pipeline | Merging diagnosis + dispense + therapy into final dataset
+2026-03-18 15:17:20 | INFO     | pipeline | All features merged successfully
+2026-03-18 15:17:20 | INFO     | pipeline | Scoring started at 2026-03-18 15:17:20
+2026-03-18 15:17:21 | INFO     | pipeline | Scoring completed at 2026-03-18 15:17:21
+2026-03-18 15:17:21 | INFO     | pipeline | Exporting results to Excel
+2026-03-18 15:17:30 | INFO     | pipeline | Results exported to outputs/: 966 rows
+2026-03-18 15:17:30 | INFO     | pipeline | Pipeline execution complete at 2026-03-18 15:17:30 | total time: 15m 48.41s
+2026-03-18 15:17:30 | INFO     | pipeline | Total time taken for pipeline execution: 15m 48.41s
