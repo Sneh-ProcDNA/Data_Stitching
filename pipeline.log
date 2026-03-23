@@ -1471,3 +1471,88 @@ from data_dev.mx_core_table
 2026-03-18 15:17:30 | INFO     | pipeline | Results exported to outputs/: 966 rows
 2026-03-18 15:17:30 | INFO     | pipeline | Pipeline execution complete at 2026-03-18 15:17:30 | total time: 15m 48.41s
 2026-03-18 15:17:30 | INFO     | pipeline | Total time taken for pipeline execution: 15m 48.41s
+2026-03-19 13:20:15 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-19 13:20:15 | INFO     | db | Database engine created successfully
+2026-03-19 13:20:15 | INFO     | db | Starting Data Download at 2026-03-19 13:20:15
+2026-03-19 13:20:15 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-19 13:20:20 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 5.08s
+2026-03-19 13:20:20 | DEBUG    | db | Executing query: sp_data
+2026-03-19 13:20:23 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 2.92s
+2026-03-19 13:20:23 | DEBUG    | db | Executing query: mx_core_table
+2026-03-19 13:20:44 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 21.22s
+2026-03-19 13:20:44 | DEBUG    | db | Executing query: px_core_table
+2026-03-19 13:20:55 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 11.33s
+2026-03-19 13:20:55 | INFO     | db | All database tables loaded successfully | total db load time: 0m 40.55s
+2026-03-19 13:21:00 | INFO     | pipeline | Starting Pipeline at 2026-03-19 13:21:00
+2026-03-19 13:21:00 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-19 13:21:00
+2026-03-19 13:21:00 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-19 13:21:06 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-19 13:21:06 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-19 13:33:27 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-19 13:33:27 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-19 13:33:27 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-19 13:33:27 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-19 13:33:27
+2026-03-19 13:33:27 | INFO     | pipeline | Therapy Rules Section started at 2026-03-19 13:33:27
+2026-03-19 13:33:28 | INFO     | pipeline | prior_treatment_flag created | True count: 604
+2026-03-19 13:33:28 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-19 13:33:28
+2026-03-19 13:33:28 | INFO     | pipeline | Dispense Rules Section started at 2026-03-19 13:33:28
+2026-03-19 13:33:32 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-19 13:40:20 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-19 13:40:32 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-19 13:40:32
+2026-03-19 13:40:32 | INFO     | pipeline | Payor Rules Section started at 2026-03-19 13:40:32
+2026-03-19 13:40:32 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-19 13:40:32 | DEBUG    | pipeline | Merging SP payor core with PX payor data on matched_patient_id
+2026-03-19 13:40:36 | DEBUG    | pipeline | Generating payor flags (vectorized)
+2026-03-19 13:40:36 | INFO     | pipeline | Payor flags generated | payor_name_flag=True: 37 | payor_type_flag=True: 240 | pbm_flag=True: 100
+2026-03-19 13:40:36 | INFO     | pipeline | Payor Rules Section completed at 2026-03-19 13:40:36
+2026-03-19 13:40:36 | INFO     | pipeline | Final payor flags created
+2026-03-19 13:40:36 | INFO     | pipeline | Merging diagnosis + dispense + therapy into final dataset
+2026-03-19 13:40:36 | INFO     | pipeline | All features merged successfully
+2026-03-19 13:40:36 | INFO     | pipeline | Scoring started at 2026-03-19 13:40:36
+2026-03-19 13:40:36 | INFO     | pipeline | Scoring completed at 2026-03-19 13:40:36
+2026-03-19 13:40:36 | INFO     | pipeline | Creating best match flags
+2026-03-19 14:47:37 | DEBUG    | db | Initializing database engine | host=database-sparkathon.cm6vbnnsye5g.us-east-1.rds.amazonaws.com | port=5432 | database=postgres | user=postgres
+2026-03-19 14:47:37 | INFO     | db | Database engine created successfully
+2026-03-19 14:47:37 | INFO     | db | Starting Data Download at 2026-03-19 14:47:37
+2026-03-19 14:47:37 | DEBUG    | db | Executing query: sp_komodo_core_base
+2026-03-19 14:47:46 | INFO     | db | sp_core_df loaded | rows: 5571 | columns: 13 | time: 8.99s
+2026-03-19 14:47:46 | DEBUG    | db | Executing query: sp_data
+2026-03-19 14:47:55 | INFO     | db | sp_data_df loaded | rows: 4160 | columns: 125 | time: 8.45s
+2026-03-19 14:47:55 | DEBUG    | db | Executing query: mx_core_table
+2026-03-19 14:50:32 | INFO     | db | mx_df loaded | rows: 626045 | columns: 24 | time: 157.05s
+2026-03-19 14:50:32 | DEBUG    | db | Executing query: px_core_table
+2026-03-19 14:51:33 | INFO     | db | px_df loaded | rows: 151466 | columns: 29 | time: 61.53s
+2026-03-19 14:51:33 | INFO     | db | All database tables loaded successfully | total db load time: 3m 56.02s
+2026-03-19 14:51:45 | INFO     | pipeline | Starting Pipeline at 2026-03-19 14:51:45
+2026-03-19 14:51:45 | INFO     | pipeline | Diagnosis Validation Section started at 2026-03-19 14:51:45
+2026-03-19 14:51:45 | DEBUG    | pipeline | Extracting ICD codes from SP data
+2026-03-19 14:51:47 | INFO     | pipeline | ICD codes from SP data populated for 4610 records
+2026-03-19 14:51:47 | DEBUG    | pipeline | Extracting ICD codes from claims
+2026-03-19 14:56:46 | INFO     | pipeline | ICD codes from claims populated for 4011 records
+2026-03-19 14:56:46 | DEBUG    | pipeline | Generating diagnosis flags (parent and exact)
+2026-03-19 14:56:46 | INFO     | pipeline | Diagnosis flags generated | parent_diag_code_flag=True: 2451 | exact_diag_code_flag=True: 1244
+2026-03-19 14:56:46 | INFO     | pipeline | Diagnosis Validation Section completed at 2026-03-19 14:56:46
+2026-03-19 14:56:46 | INFO     | pipeline | Therapy Rules Section started at 2026-03-19 14:56:46
+2026-03-19 14:56:46 | INFO     | pipeline | prior_treatment_flag created | True count: 604
+2026-03-19 14:56:46 | INFO     | pipeline | Therapy Rules Section completed at 2026-03-19 14:56:46
+2026-03-19 14:56:46 | INFO     | pipeline | Dispense Rules Section started at 2026-03-19 14:56:46
+2026-03-19 14:56:48 | DEBUG    | pipeline | Generating prescription flags (rx_flag, exact_fill_flag, lag_fill_flag)
+2026-03-19 14:59:18 | INFO     | pipeline | Prescription flags | rx_flag=True: 162547 | exact_fill_flag=True: 704 | lag_fill_flag=True: 9540
+2026-03-19 14:59:24 | INFO     | pipeline | Dispense Rules Section completed at 2026-03-19 14:59:24
+2026-03-19 14:59:24 | INFO     | pipeline | Payor Rules Section started at 2026-03-19 14:59:24
+2026-03-19 14:59:25 | DEBUG    | pipeline | Merging SP payor data with SP core on sp_patient_id
+2026-03-19 14:59:25 | DEBUG    | pipeline | Merging SP payor core with PX payor data on matched_patient_id
+2026-03-19 14:59:26 | DEBUG    | pipeline | Generating payor flags (vectorized)
+2026-03-19 14:59:26 | INFO     | pipeline | Payor flags generated | payor_name_flag=True: 37 | payor_type_flag=True: 240 | pbm_flag=True: 100
+2026-03-19 14:59:26 | INFO     | pipeline | Payor Rules Section completed at 2026-03-19 14:59:26
+2026-03-19 14:59:26 | INFO     | pipeline | Final payor flags created
+2026-03-19 14:59:26 | INFO     | pipeline | Merging diagnosis + dispense + therapy into final dataset
+2026-03-19 14:59:26 | INFO     | pipeline | All features merged successfully
+2026-03-19 14:59:26 | INFO     | pipeline | Scoring started at 2026-03-19 14:59:26
+2026-03-19 14:59:26 | INFO     | pipeline | Scoring completed at 2026-03-19 14:59:26
+2026-03-19 14:59:26 | INFO     | pipeline | Creating best match flags
+2026-03-19 14:59:27 | INFO     | pipeline | Best match flags created
+2026-03-19 14:59:27 | INFO     | pipeline | Exporting results to Excel
+2026-03-19 14:59:32 | INFO     | pipeline | Results exported to outputs/: 966 rows
+2026-03-19 14:59:32 | INFO     | pipeline | Pipeline execution complete at 2026-03-19 14:59:32 | total time: 7m 47.24s
+2026-03-19 14:59:32 | INFO     | pipeline | Total time taken for pipeline execution: 7m 47.24s

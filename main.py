@@ -173,7 +173,8 @@ sp_core_copy = sp_core_copy.drop(columns=[rx_date_match_flag, exact_fill_date_ma
 # Casts both columns to datetime first to avoid "str - Timestamp" TypeError
 _referral = pd.to_datetime(sp_core_copy['referral_date'], errors='coerce')
 _service  = pd.to_datetime(sp_core_copy['service_date'],  errors='coerce')
-sp_core_copy['diagnosis_days_lag'] = (_service - _referral).abs().dt.days.where(
+# FINAL: standardized lag column used across pipeline
+sp_core_copy['days_lag'] = (_service - _referral).abs().dt.days.where(
     _referral.notna() & _service.notna(), other=float('inf')
 )
 
@@ -274,7 +275,8 @@ disp_cols = [
     sp_patient_id_column_in_core_table,
     claims_patient_id_column_in_core_table,
     'rx_date_match_flag',
-    'lag_fill_date_flag'
+    'lag_fill_date_flag',
+    'days_lag'   # ✅ REQUIRED for best match logic
 ]
 
 therapy_cols = [
@@ -314,7 +316,8 @@ flag_cols = [
 ]
 
 sp_final_df[flag_cols] = sp_final_df[flag_cols].fillna(0)
-
+# Ensure lag is always usable
+sp_final_df['days_lag'] = sp_final_df['days_lag'].fillna(float('inf'))
 logger.info("All features merged successfully")
 # ─────────────────────────────────────────
 # SCORING
@@ -323,7 +326,17 @@ logger.info(f"Scoring started at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
 sp_final_df['confidence_score'] = sp_final_df.apply(generate_confidence_score, axis=1)
 logger.info(f"Scoring completed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-
+logger.info("Creating best match flags") 
+sp_final_df['best_match_flag'] = 0
+best_indices = (
+    sp_final_df.groupby(sp_patient_id_column_in_core_table, group_keys=False)
+    .apply(generate_best_flag)
+    .explode()
+    .dropna()
+    .astype(int)
+)
+sp_final_df.loc[best_indices, 'best_match_flag'] = 1
+logger.info("Best match flags created")
 # ─────────────────────────────────────────
 # EXPORT RESULTS TO EXCEL
 # ─────────────────────────────────────────

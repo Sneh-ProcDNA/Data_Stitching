@@ -1,3 +1,7 @@
+import numpy as np
+import pandas as pd
+
+
 def generate_confidence_score(row):
     parent_diag_code_flag = row['parent_diag_code_flag']
     exact_diag_code_flag = row['exact_diag_code_flag']
@@ -44,3 +48,34 @@ def generate_confidence_score(row):
     confidence_score = diagnosis_score_parent + diagnosis_score_exact + final_dispense + therapy_score + payor_type_score + payor_name_score + pbm_score + 50
 
     return confidence_score
+
+
+
+
+
+ 
+def generate_best_flag(group):
+    if 'days_lag' not in group.columns:
+        return pd.Index([])
+
+    if np.isinf(group['days_lag']).all():
+        return pd.Index([])
+
+    max_conf = group['confidence_score'].max()
+    top_conf = group[group['confidence_score'] == max_conf]
+
+    if len(top_conf) == 1:
+        return top_conf.index
+
+    valid_lag = top_conf[~np.isinf(top_conf['days_lag'])]
+
+    if valid_lag.empty:
+        return pd.Index([])
+
+    min_lag = valid_lag['days_lag'].min()
+    winners = valid_lag[valid_lag['days_lag'] == min_lag]
+
+    return winners.index
+ 
+
+ 
